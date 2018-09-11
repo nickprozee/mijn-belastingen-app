@@ -26,7 +26,6 @@ class Login extends React.Component {
     onLoginClicked() { }
 
     render() {
-        const titleColor = this.state.showFullContent ? "#FFF" : 'rgba(255,255,255, .5)';
         const space = this.state.showFullContent ? 5 : 3;
         return (
 
@@ -37,7 +36,7 @@ class Login extends React.Component {
                     this.state.showFullContent &&
                     <Logo maxWidthPercentage={30} />
                 }
-                <Text style={[styles.title, { color: titleColor }]}>
+                <Text style={[styles.title]}>
                     {
                         this.state.showFullContent
                             ? 'MIJN-BELASTINGEN'
@@ -89,13 +88,15 @@ const styles = {
     root: {
         display: 'flex',
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: '#57606f'
     },
 
     title: {
         fontSize: 20,
         fontFamily: 'Roboto',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color:  "#FFF" 
     }
 
 }

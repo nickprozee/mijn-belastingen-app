@@ -6,23 +6,26 @@ import { connect } from 'react-redux'
 import { authenticateUser } from './Actions/authenticationActions';
 import { bindActionCreators } from 'redux';
 
+import { createStackNavigator } from 'react-navigation';
 
+const Navigation = createStackNavigator({
+  Home: {
+    screen: Login,
+    navigationOptions: {
+      header: null
+    }
+  },
+});
 
 class Root extends React.Component {
-  constructor(props) {
-    super(props);
-
-  }
-
   render() {
-    return <View style={styles.container}>
-      <Login />
-    </View>
+    return <Navigation />
   }
 }
 
 const mapStateToProps = state => ({
-  authentication: state.authentication
+  authentication: state.authentication,
+  appNavigation: state.appNavigation
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -30,12 +33,5 @@ const mapDispatchToProps = (dispatch) => {
     onAuthenticate: authenticateUser,
   }, dispatch);
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#57606f'
-  }
-});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Root);
