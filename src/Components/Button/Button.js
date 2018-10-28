@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 class Button extends React.Component {
     render() {
         return (
-            <TouchableWrapper style={styles.button}>
+            <TouchableWrapper style={styles.button} onPress={this.props.onPress}>
 
                 <View style={styles.contentWrapper}>
 

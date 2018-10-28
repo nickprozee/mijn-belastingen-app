@@ -1,12 +1,8 @@
-export const NAVIGATION_NAVIGATE_TO_SCREEN = 'navigation:navigateToScreen';
-export const SCREENS = {
-    LOGIN: 'navigation:screen_login'
-}
+export const NAVIGATION_NAVIGATE_TO_DASHBOARD = 'navigation:navigateToDashboard';
+export const NAVIGATION_NAVIGATE_TO_LOGIN = 'navigation:navigateToLogin';
 
-
-export function navigate(screen) {
+export function navigate(action) {
     return {
-        type: NAVIGATION_NAVIGATE_TO_SCREEN,
-        payload: screen
+        type: action
     }
 }

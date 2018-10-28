@@ -1,17 +1,23 @@
 import * as ACTIONTYPES from '../Actions/navigationActions';
-import Login from '../Views/Login';
+import { screens } from '../AppNavigator';
 
 const default_state = {
-    screen: Login,
+    screen: screens.Dashboard
 }
 
 export function navigationReducer(state = default_state, action) {
     switch (action.type) {
 
-        case ACTIONTYPES.NAVIGATION_NAVIGATE_TO_SCREEN:
+        case ACTIONTYPES.NAVIGATION_NAVIGATE_TO_DASHBOARD:
+
             return {
-                ...state,
-                screen: action.payload
+                screen: screens.Dashboard
+            };
+
+        case ACTIONTYPES.NAVIGATION_NAVIGATE_TO_LOGIN:
+
+            return {
+                screen: screens.Login
             };
 
         default:
