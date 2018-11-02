@@ -6,27 +6,21 @@ import PropTypes from 'prop-types';
 class CustomSwitch extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            enabled: false
-        }
     }
 
     componentWillReceiveProps(nextProps) {
-        LayoutAnimation.configureNext({ ...LayoutAnimation.Presets.easeInEaseOut, duration: 200 });
-        this.setState({
-            enabled: nextProps.enabled
-        });
+        if (this.props.enabled !== nextProps.enabled)
+            LayoutAnimation.configureNext({ ...LayoutAnimation.Presets.easeInEaseOut, duration: 200 });
     }
 
     onPress() {
-        this.props.onChange(!this.state.enabled);
+        this.props.onChange(!this.props.enabled);
     }
 
     render() {
 
-        const left = this.state.enabled ? (WIDTH - BUTTON_SIZE) : 0;
-        const color = this.state.enabled ? '#2ecc71' : '#e74c3c';
+        const left = this.props.enabled ? (WIDTH - BUTTON_SIZE) : 0;
+        const color = this.props.enabled ? '#2ecc71' : '#e74c3c';
 
         return <DefaultLayoutWrapper style={styles.container}>
 

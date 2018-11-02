@@ -3,11 +3,11 @@ import * as ACTIONTYPES from '../Actions/authenticationActions';
 const default_state = {
 
     isAuthenticating: false,
-    storeCredentials: false,
+    storeCredentials: true,
 
     authKey: '',
-    username: '',
-    password: '',
+    username: 'Nick Prozee',
+    password: 'Nick Prozee',
 
     error: ''
 
@@ -17,7 +17,7 @@ export function authenticationReducer(state = default_state, action) {
     switch (action.type) {
 
         case ACTIONTYPES.AUTHENTICATE_REMEMBER_USER:
-
+            
             return {
                 ...state,
                 storeCredentials: action.payload

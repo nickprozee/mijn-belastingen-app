@@ -1,15 +1,15 @@
 import React from 'react';
-import { View, Dimensions, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import { Avatar } from 'react-native-elements';
+import {connect} from 'react-redux';
 import Navigationhandler from '../Components/NavigationHandler/NavigationHandler';
-class Dashboard extends React.Component {
-    iconSize = Dimensions.get('screen').width / 4;
 
+class Dashboard extends React.Component {
     renderLink(title, icon, color, link, key) {
         return <View style={styles.link} key={key}>
-            <Ionicons name={icon} color={'silver'} size={this.iconSize} />
-            <Text style={styles.text}>{title}</Text>
+            <Ionicons name={icon} color={'white'} size={32} key={key + '_icon'} />
+            <Text style={styles.title} key={key + '_text'}>{title}</Text>
         </View>
     }
 
@@ -17,47 +17,29 @@ class Dashboard extends React.Component {
         return <View style={styles.root}>
 
             <View style={styles.profile}>
-
+                <Avatar
+                    xlarge
+                    rounded
+                    source={{ uri: "https://www.db.com/cr/img/DB_Tuerme_Video_L.jpg" }}
+                    onPress={() => console.log("Works!")}
+                    activeOpacity={0.7}
+                />
+                <Text style={styles.title}>{this.props.user.name}</Text>
             </View>
 
             <View style={styles.links}>
-                <View style={styles.linkRow} key={1}>{
-                    [{
-                        title: '12 Actieve belastingen',
-                        icon: 'ios-card',
-                        link: '',
-                        key: 'dashBoard:active'
-                    },
-                    {
-                        title: '3 Belastingen onbehandeld',
-                        icon: 'ios-alert',
-                        link: '',
-                        key: 'dashBoard:open'
-                    }].map(link => this.renderLink(link.title, link.icon, link.link, link.key))
-                }
-                </View>
-                <View style={styles.linkRow} key={2}>{
-                    [{
-                        title: 'Instellingen',
-                        icon: 'ios-options',
-                        link: '',
-                        key: 'dashBoard:settings'
-                    },
-                    {
-                        title: 'Wijzig Profiel',
-                        icon: 'ios-contact',
-                        link: '',
-                        key: 'dashBoard:profile'
-                    }].map(link => this.renderLink(link.title, link.icon, link.link, link.key))
-                }
-                </View>
+              
             </View>
         </View>
     }
 }
 
-export default Dashboard;
 
+const mapStateToProps = (state) => ({
+    user: state.user
+});
+
+export default connect(mapStateToProps)(Dashboard);
 
 const styles = {
 
@@ -68,34 +50,27 @@ const styles = {
         flexDirection: 'column'
     },
 
-    text: {
-        fontSize: 14,
+    title: {
+        marginTop: 16,
+        fontSize: 24,
+        fontWeight: '100',
         fontFamily: 'Roboto',
         color: "#FFF",
         textAlign: 'center'
     },
 
-    divider: {
-        display: 'flex',
-        height: 1,
-        flex: 1,
-        backgroundColor: 'white'
-    },
-
     profile: {
-        height: Dimensions.get('window').height / 2,
-        width: Dimensions.get('window').width,
+        display: 'flex',
+        flex: 1,
 
-        //    borderBottomWidth: .5,
-        //    borderBottomColor: 'tomato'
+        alignItems: 'center',
+        justifyContent: 'center'
     },
 
     links: {
-        height: Dimensions.get('window').height / 2,
-
         display: 'flex',
         flex: 1,
-        flexDirection: 'column'
+        flexDirection: 'column',
     },
 
     linkRow: {
@@ -111,7 +86,8 @@ const styles = {
         alignItems: 'center',
 
         borderWidth: .5,
-        margin: 10
+        margin: 10,
+        borderColor: 'silver'
     },
 
     row: {

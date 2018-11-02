@@ -1,3 +1,5 @@
+
+//Components
 import React from 'React';
 import { View, LayoutAnimation, Text, Keyboard } from 'react-native';
 import Logo from '../Components/Logo/Logo';
@@ -6,30 +8,22 @@ import MarginComponent from '../Components/LayoutHelpers/MarginComponent';
 import Button from '../Components/Button/Button';
 import CustomSwitch from '../Components/Switch/CustomSwitch';
 import KeyboardAvoidingViewHandler from '../Components/LayoutHelpers/KeyboardAvoidingViewHandler';
-import { onRememberCredetialsChanged, onPasswordChanged, onUsernameChanged, authenticateUser } from '../Actions/authenticationActions';
+import FullScreenSpinner from '../Components/Spinner/FullScreenSpinner';
+
+//Simple state changes - Redux
+import { setRememberCredentials, setPassword, setUsername } from '../Actions/AuthenticationActions';
+import { setShowFullContent } from '../Actions/screenActions';
+
+//Combined actions
+import { authenticateUser } from '../ViewActions/LoginActions'
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import FullScreenSpinner from '../Components/Spinner/FullScreenSpinner';
-import NavigationHandler from '../Components/NavigationHandler/NavigationHandler';
 
 class Login extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { showFullContent: true }
-    }
-
-    //Hide or show Logo based on keyboard open/closed.
-    componentWillReceiveProps(nextProps) {
-
-        if (nextProps.keyboard.isOpen !== this.props.keyboard.isOpen) {
-
-            LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-
-            this.setState({
-                showFullContent: !nextProps.keyboard.isOpen
-            });
-
-        }
+        this.state = { showFullContent: true, storeCredentials: false }
     }
 
     //Authenticate user on login clicked
@@ -38,40 +32,42 @@ class Login extends React.Component {
         this.props.onAuthenticateUser(this.props.authentication.username, this.props.authentication.password);
     }
 
-    render() {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.keyboard.isOpen !== this.props.keyboard.isOpen) {
+            LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+            this.props.onShowFullContentChanged(!nextProps.keyboard.isOpen)
+        }
+    }
 
-        const space = this.state.showFullContent ? 5 : 3;
+    render() {
+        let { showFullContent } = this.props.screen
+        let { isAuthenticating, storeCredentials, password, username } = this.props.authentication;
+        const spaceBetweenComponents = showFullContent ? 5 : 3;
+        const appTitle = showFullContent ? 'MIJN-BELASTINGEN' : 'IDENTIFICATIE'
 
         return (
-            <NavigationHandler navigation={this.props.navigation}>
                 <View style={styles.root}>
-
-                    <MarginComponent space={space} />
+                    <MarginComponent space={spaceBetweenComponents} />
                     {
-                        this.state.showFullContent &&
+                        this.props.screen.showFullContent &&
                         <Logo maxWidthPercentage={30} />
                     }
-                    <Text style={[styles.title]}>
-                        {
-                            this.state.showFullContent
-                                ? 'MIJN-BELASTINGEN'
-                                : 'IDENTIFICATIE'
-                        }
-                    </Text>
 
-                    <MarginComponent space={space} />
+                    <Text style={[styles.title]}>{appTitle}</Text>
 
-                    <KeyboardAvoidingViewHandler>
+                    <MarginComponent space={spaceBetweenComponents} />
 
-                        <TextField onChange={this.props.onUsernameChanged} placeholder="Gebruikersnaam" value={this.props.authentication.username} icon="perm-identity" />
+                    <KeyboardAvoidingViewHandler >
+
+                        <TextField onChange={this.props.onUsernameChanged} placeholder="Gebruikersnaam" value={username} icon="perm-identity" />
 
                         <MarginComponent space={1} />
 
-                        <TextField onChange={this.props.onPasswordChanged} placeholder="Wachtwoord" value={this.props.authentication.password} secured icon="lock" />
+                        <TextField onChange={this.props.onPasswordChanged} placeholder="Wachtwoord" value={password} secured icon="lock" />
 
                         <MarginComponent space={1} />
 
-                        <CustomSwitch onChange={this.props.onRememberCredetialsChanged} label="Inloggegevens onthouden" enabled={this.props.authentication.storeCredentials} />
+                        <CustomSwitch onChange={this.props.onRememberCredetialsChanged} label="Inloggegevens onthouden" enabled={storeCredentials} />
 
                         <MarginComponent space={1} />
 
@@ -80,26 +76,25 @@ class Login extends React.Component {
                     </KeyboardAvoidingViewHandler>
 
                     {
-                        this.props.authentication.isAuthenticating &&
-                        <FullScreenSpinner text="Gegevens ophalen..." />
+                        isAuthenticating && <FullScreenSpinner text="Gegevens ophalen..." />
                     }
-
                 </View>
-            </NavigationHandler>
         );
     }
 }
 
 const mapStateToProps = state => ({
     keyboard: state.keyboard,
-    authentication: state.authentication
+    authentication: state.authentication,
+    screen: state.screen
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    onRememberCredetialsChanged: onRememberCredetialsChanged,
-    onPasswordChanged: onPasswordChanged,
-    onUsernameChanged: onUsernameChanged,
-    onAuthenticateUser: authenticateUser
+    onRememberCredetialsChanged: setRememberCredentials,
+    onPasswordChanged: setPassword,
+    onUsernameChanged: setUsername,
+    onAuthenticateUser: authenticateUser,
+    onShowFullContentChanged: setShowFullContent
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

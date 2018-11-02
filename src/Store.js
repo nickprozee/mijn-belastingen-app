@@ -7,12 +7,14 @@ import {keyboardReducer} from './Reducers/keyboardReducer';
 import {authenticationReducer} from './Reducers/authenticationReducer';
 import {navigationReducer} from './Reducers/navigationReducer';
 import {userReducer} from './Reducers/userReducer';
+import {screenReducer} from './Reducers/screenReducer';
 
 var allReducers = combineReducers({
     user: userReducer,
     keyboard: keyboardReducer,
     authentication: authenticationReducer,
-    nav: navigationReducer
+    nav: navigationReducer,
+    screen: screenReducer
 });
 
 const middleWare = applyMiddleware(thunk);

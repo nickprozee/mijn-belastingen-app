@@ -6,20 +6,22 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Login from './Views/Login';
 import Dashboard from './Views/Dashboard';
+import EmptyView from './Views/EmptyView';
 
 export const screens = {
     Dashboard: 'Dashboard'
 };
 
 const RootStack = createBottomTabNavigator({
-    Actief: { screen: Dashboard },
+    Actief: { screen: EmptyView },
     Overzicht: { screen: Dashboard },
-    Onbehandeld: { screen: Dashboard }  
+    Onbehandeld: { screen: EmptyView },
+    Instellingen: { screen: EmptyView }
 },
     {
         initialRouteName: 'Overzicht',
         navigationOptions: ({ navigation }) => ({
-            
+
             tabBarIcon: ({ focused, horizontal, tintColor }) => {
                 const { routeName } = navigation.state;
                 let iconName;
@@ -28,8 +30,10 @@ const RootStack = createBottomTabNavigator({
                     iconName = `ios-home${focused ? '' : '-outline'}`;
                 } else if (routeName === 'Onbehandeld') {
                     iconName = `ios-alert${focused ? '' : '-outline'}`;
-                }else if (routeName === 'Actief') {
+                } else if (routeName === 'Actief') {
                     iconName = `ios-card${focused ? '' : '-outline'}`;
+                }else if (routeName === 'Instellingen') {
+                    iconName = `ios-glasses${focused ? '' : '-outline'}`;
                 }
 
                 // You can return any component that you like here! We usually use an
@@ -44,6 +48,7 @@ const RootStack = createBottomTabNavigator({
     });
 
 class AppNavigator extends React.Component {
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.authentication.authKey !== this.props.authentication.authKey)
             LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -52,8 +57,8 @@ class AppNavigator extends React.Component {
     render() {
         return this.props.authentication.authKey
             ? <RootStack />
-            //: <Login />
-            : <RootStack />
+            : <Login />
+        //: <RootStack />
 
     }
 }
