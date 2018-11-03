@@ -8,14 +8,16 @@ export function authenticateUser(username, password) {
 
         dispatch(authenticationActions.authenticateUser(authenticationActions.AUTHENTICATE_USER_START));
 
-        if (validLogin) 
+        if (validLogin)
             setTimeout(() => {
-                dispatch(authenticationActions.authenticateUser(authenticationActions.AUTHENTICATE_USER_SUCCES, { authKey: '123123' }));
                 dispatch(userActions.setUser({ name: username }));
-            }, 3000)
+                dispatch(authenticationActions.authenticateUser(authenticationActions.AUTHENTICATE_USER_SUCCES, { authKey: '123123' }));
+                
+            }, 500)
 
         else
             dispatch(authenticationActions.authenticateUser(authenticationActions.AUTHENTICATE_USER_FAILED, "Onbekende gebruikersnaam en/of wachtwoord"));
     }
 }
+
 

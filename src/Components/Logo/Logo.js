@@ -12,7 +12,7 @@ class Logo extends React.Component {
             aspectRatio: 1
         }
         
-        return <Image resizeMethod='scale' style={style} source={logo} />
+        return <Image resizeMethod='scale' style={[style, this.props.style]} source={logo}  />
     }
 
 }

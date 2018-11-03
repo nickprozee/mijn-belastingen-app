@@ -8,7 +8,7 @@ class TextField extends React.Component {
     render() {
 
         return (
-            <TouchableWrapper>
+            <TouchableWrapper style={this.props.style}>
 
                 <View style={styles.iconWrapper}>
                     <Icon color="rgba(0,0,0,.5)" name={this.props.icon} />

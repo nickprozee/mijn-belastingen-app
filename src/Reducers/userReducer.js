@@ -1,4 +1,4 @@
-import * as UserTypes from '../Actions/userActions';
+import * as UserTypes from '../Actions/UserActions';
 
 const default_state = {
 

@@ -22,7 +22,7 @@ class CustomSwitch extends React.Component {
         const left = this.props.enabled ? (WIDTH - BUTTON_SIZE) : 0;
         const color = this.props.enabled ? '#2ecc71' : '#e74c3c';
 
-        return <DefaultLayoutWrapper style={styles.container}>
+        return <DefaultLayoutWrapper style={[styles.container, this.props.style]}>
 
             <View style={styles.flex} />
             <View style={styles.labelWrapper}>

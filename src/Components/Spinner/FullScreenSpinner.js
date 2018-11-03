@@ -5,6 +5,8 @@ class FullScreenSpinner extends React.Component {
     constructor(props) {
         super(props);
 
+        this.job = undefined;
+
         this.state = {
             displaySpinner: false,
             displayBackground: false,
@@ -15,23 +17,28 @@ class FullScreenSpinner extends React.Component {
         this.fadeInSpinner();
     }
 
-    fadeInSpinner = () => setTimeout(() => {
+    componentWillUnmount(){
+        if (this.job)
+            clearTimeout(this.job);
+    }
+
+    fadeInSpinner = () => {
+        
             // fade in background
             LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
             this.setState({
                 displayBackground: true
             },
-                () => setTimeout(
+                () => this.job = setTimeout(
                     () => {
                         LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
                         this.setState({
                             displaySpinner: true
                         })
                     },
-                    300 //delay spinner
-                ))
-        }, 100 //Background delay
-    );
+                    100 //delay spinner
+                ));
+    }
 
     render() {
         return <View style={[styles.spinnerWrapper, {

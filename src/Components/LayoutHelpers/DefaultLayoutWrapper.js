@@ -5,7 +5,7 @@ class DefaultLayoutWrapper extends React.Component {
     render() {
 
         return (
-            <View style={[styles.container, { ...this.props.style }]}>
+            <View style={[styles.container, this.props.style]}>
                 <View style={styles.wrapper}>
                     {
                         this.props.children

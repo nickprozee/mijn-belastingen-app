@@ -5,11 +5,28 @@ export const AUTHENTICATE_USER_FAILED = 'authentication:authenticateUser_FAILED'
 export const AUTHENTICATE_REMEMBER_USER = 'authentication:setRememberCredentials';
 export const AUTHENTICATE_SET_USERNAME = 'authentication:setUsername';
 export const AUTHENTICATE_SET_PASSWORD = 'authentication:setPassword';
+export const AUTHENTICATE_LOGOFF = 'authentication:logoff';
+export const AUTHENTICATE_IS_AUTHENTICATING = 'authentication:isAuthenticating';
+
+
 
 export function authenticateUser(type, payload) {
     return {
         type,
         payload
+    }
+}
+
+export function setIsAuthenticating(value){
+    return {
+        type: AUTHENTICATE_IS_AUTHENTICATING,
+        payload: value
+    }
+}
+
+export function logoffUser() {
+    return { 
+        type: AUTHENTICATE_LOGOFF 
     }
 }
 

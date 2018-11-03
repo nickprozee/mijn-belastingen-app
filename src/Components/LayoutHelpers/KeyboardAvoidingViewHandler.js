@@ -1,7 +1,7 @@
 
 import React from 'React';
 import { KeyboardAvoidingView, Keyboard } from 'react-native';
-import { onOpenKeyboard, onCloseKeyboard } from '../../Actions/keyboardActions';
+import { onOpenKeyboard, onCloseKeyboard } from '../../Actions/KeyboardActions';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

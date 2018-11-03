@@ -7,6 +7,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Login from './Views/Login';
 import Dashboard from './Views/Dashboard';
 import EmptyView from './Views/EmptyView';
+import SettingsView from './Views/Settings';
+
 
 export const screens = {
     Dashboard: 'Dashboard'
@@ -16,7 +18,7 @@ const RootStack = createBottomTabNavigator({
     Actief: { screen: EmptyView },
     Overzicht: { screen: Dashboard },
     Onbehandeld: { screen: EmptyView },
-    Instellingen: { screen: EmptyView }
+    Instellingen: { screen: SettingsView }
 },
     {
         initialRouteName: 'Overzicht',

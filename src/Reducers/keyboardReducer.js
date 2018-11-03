@@ -1,10 +1,8 @@
-import * as ACTIONTYPES from '../Actions/keyboardActions';
-
+import * as ACTIONTYPES from '../Actions/KeyboardActions';
 
 const default_state = { 
     isOpen: false 
 }
-
 
 export function keyboardReducer(state = default_state, action) {
 

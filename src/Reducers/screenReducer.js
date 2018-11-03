@@ -1,4 +1,4 @@
-import * as ACTIONTYPES from '../Actions/screenActions';
+import * as ACTIONTYPES from '../Actions/ScreenActions';
 
 const default_state = {
     showFullContent: true

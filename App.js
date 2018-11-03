@@ -7,17 +7,17 @@ import store from './src/Store';
 import AppNavigator from './src/AppNavigator';
 
 export default class Root extends React.Component {
-
   componentDidMount() {
     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
     Expo.ScreenOrientation.allow(Expo.ScreenOrientation.Orientation.PORTRAIT_UP);
   }
 
   render() {
+
     return (
-      <Provider store={store}>
-        <AppNavigator />
-      </Provider>
+        <Provider store={store}>
+            <AppNavigator />
+        </Provider>
     );
   }
 }

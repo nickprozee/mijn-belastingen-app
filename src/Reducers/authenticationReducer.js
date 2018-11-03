@@ -1,4 +1,4 @@
-import * as ACTIONTYPES from '../Actions/authenticationActions';
+import * as ACTIONTYPES from '../Actions/AuthenticationActions';
 
 const default_state = {
 
@@ -16,8 +16,22 @@ const default_state = {
 export function authenticationReducer(state = default_state, action) {
     switch (action.type) {
 
+        case ACTIONTYPES.AUTHENTICATE_IS_AUTHENTICATING:
+
+            return {
+                ...state,
+                isAuthenticating: action.payload
+            }
+
+        case ACTIONTYPES.AUTHENTICATE_LOGOFF:
+
+            return {
+                ...state,
+                authKey: undefined
+            }
+
         case ACTIONTYPES.AUTHENTICATE_REMEMBER_USER:
-            
+
             return {
                 ...state,
                 storeCredentials: action.payload
@@ -55,9 +69,11 @@ export function authenticationReducer(state = default_state, action) {
         case ACTIONTYPES.AUTHENTICATE_USER_FAILED:
 
             return {
+
                 ...state,
                 error: action.payload,
                 isAuthenticating: false
+
             }
 
         default:
